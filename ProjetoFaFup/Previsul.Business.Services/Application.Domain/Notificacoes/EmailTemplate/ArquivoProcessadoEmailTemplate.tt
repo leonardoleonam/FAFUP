@@ -1,0 +1,88 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.String" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Application.Domain.Enums" #>
+<#@ import namespace="Application.Domain.Notificacoes.Model" #>
+
+<!DOCTYPE html>
+<html>
+<head>
+ <style>
+        body {
+            font-family: arial;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text - align: left;
+            padding: 8px;
+        }
+
+        .linhaTopo {
+            background-Color: #CFCFCF;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+	<p>Foi processado o serviço de integração de arquivos do COTA+ com I4PRO</p>
+    <p>Resultado do processamento: </p>
+    <table>
+        <thead>
+            <tr class="linhaTopo">  
+				<th>STATUS</th>
+                <th>MENSAGEM</th>
+                <th>Nº PROPOSTA</th>                                    
+                <th>Nº APOLICE</th>
+                <th>CHAVE</th>
+                <th>DATA EMISSÃO</th>
+            </tr>
+        </thead>
+		<tbody>
+		<# foreach(var arquivo in ArquivosProcessados) { #>	
+		
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.NaoDefinido) { #>
+				<tr style="">
+			<# } #>		
+									
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.Erro) { #>
+				<tr style="background-color: #FF8E9A" >
+			<# } #>
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.Sucesso) { #>
+				<tr style="background-color: #90FF75" >
+			<# } #>
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.Executando) { #>
+				<tr style="background-color: #FFFACD" >
+			<# } #>
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.LoteArquivoInconsistente) { #>
+				<tr style="background-color: #FFFACD" >
+			<# } #>
+			<# if (arquivo.StatusProcessamentoArquivo == StatusPropostaArquivoEnum.Alocado) { #>
+				<tr style="">
+			<# } #>						
+					
+				<td><#= arquivo.StatusProcessamentoArquivoDescricao #></td>
+				<td><#= arquivo.Mensagem == null ? string.Empty : arquivo.Mensagem #></td>
+				<td><#= arquivo.NumProposta == null ? string.Empty : arquivo.NumProposta #></td>
+				<td><#= arquivo.NumApolice == null ? string.Empty : arquivo.NumApolice #></td>
+				<td><#= arquivo.Chave == null ? string.Empty : arquivo.Chave #></td>
+				<td><#= arquivo.DtEmissaoFormatada == null ? string.Empty : arquivo.DtEmissaoFormatada #></td>
+			</tr>
+		<# } #>
+		</tbody>
+	</table>          
+</body>
+</html>
+
+<#+ 
+    public List<ArquivoProcessado> ArquivosProcessados { get; set; }
+#>

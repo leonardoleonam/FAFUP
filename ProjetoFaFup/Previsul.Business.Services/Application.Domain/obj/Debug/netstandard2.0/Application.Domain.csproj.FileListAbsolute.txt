@@ -1,0 +1,9 @@
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\bin\Debug\netstandard2.0\Application.Domain.deps.json
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\bin\Debug\netstandard2.0\Application.Domain.dll
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\bin\Debug\netstandard2.0\Application.Domain.pdb
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.csprojAssemblyReference.cache
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.csproj.CoreCompileInputs.cache
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.AssemblyInfoInputs.cache
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.AssemblyInfo.cs
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.dll
+C:\NovoProjetosPS\Previsul.Business.Services\Application.Domain\obj\Debug\netstandard2.0\Application.Domain.pdb

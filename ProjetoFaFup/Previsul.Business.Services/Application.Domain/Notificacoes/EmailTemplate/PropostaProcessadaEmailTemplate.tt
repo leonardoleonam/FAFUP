@@ -1,0 +1,89 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Application.Domain.Enums" #>
+<#@ import namespace="Application.Domain.Notificacoes.Model" #>
+
+<!DOCTYPE html>
+<html>
+<head>
+ <style>
+        body {
+            font-family: arial;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text - align: left;
+            padding: 8px;
+        }
+
+        .linhaTopo {
+            background-Color: #CFCFCF;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+	<p>Foi processado o serviço de integração de propostas do COTA+ com I4PRO</p>
+    <p>Resultado do processamento: </p>
+    <table>
+        <thead>
+            <tr class="linhaTopo">
+                <th>STATUS</th>
+                <th>MENSAGEM</th>
+                <th>Nº PROPOSTA</th>
+                <th>Nº CONTRATO</th>
+                <th>Nº APOLICE</th>
+                <th>CHAVE</th>
+                <th>DATA EMISSÃO</th>
+            </tr>
+        </thead>
+
+		<tbody>
+		<# foreach(var propostas in PropostasProcessadas) { #>
+				
+			<# if (propostas.StatusProposta == StatusPropostaEnum.NaoDefinido) { #>
+				<tr style="">
+			<# } #>		
+									
+			<# if (propostas.StatusProposta == StatusPropostaEnum.Erro) { #>
+				<tr style="background-color: #FF8E9A" >
+			<# } #>
+			<# if (propostas.StatusProposta == StatusPropostaEnum.Sucesso) { #>
+				<tr style="background-color: #90FF75" >
+			<# } #>
+			<# if (propostas.StatusProposta == StatusPropostaEnum.Executando) { #>
+				<tr style="background-color: #90FF75" >
+			<# } #>
+				
+			<# if (propostas.StatusProposta == StatusPropostaEnum.Alocado) { #>
+				<tr style="">
+			<# } #>						
+								
+			<td><#= propostas.StatusPropostaDescricao #></td>
+			<td><#= propostas.Mensagem == null ? string.Empty : propostas.Mensagem #></td>
+			<td><#= propostas.NumProposta == null ? string.Empty : propostas.NumProposta #></td>
+			<td><#= propostas.NumContrato == null ? string.Empty : propostas.NumContrato #></td>
+			<td><#= propostas.NumApolice == null ? string.Empty : propostas.NumApolice #></td>
+			<td><#= propostas.Chave == null ? string.Empty : propostas.Chave #></td>
+			<td><#= propostas.DtEmissaoFormatada == null ? string.Empty : propostas.DtEmissaoFormatada #></td>
+		</tr>
+		<# } #>
+		</tbody>
+	</table>
+          
+</body>
+</html>
+
+<#+ 
+    public List<PropostaProcessada> PropostasProcessadas { get; set; }
+#>
