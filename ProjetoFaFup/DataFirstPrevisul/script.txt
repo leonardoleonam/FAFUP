@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=10.109.10.94,1460;Database=PBS_PREVISUL;user id=APP_PBS;password=@4CUMAAVMNSL3O;Trusted_Connection=True; MultipleActiveResultSets=true;Integrated Security=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
