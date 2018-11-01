@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.4</Version>
+    <Description>Componente de log para produtos - Previsul.</Description>
+    <Copyright>Previsul Seguradora ©2018</Copyright>
+    <Company>Previsul Seguradora</Company>
+    <Authors>Previsul Seguradora</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+  </PropertyGroup>
+
+  <Target Name="PrePackage" BeforeTargets="BuildPackage">
+    <PropertyGroup>
+      <BuildCommand>$(BuildCommand) -IncludeReferencedProjects</BuildCommand>
+    </PropertyGroup>
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Previsul.Components.Logging.Domain\Previsul.Components.Logging.Domain.csproj" />
+    <ProjectReference Include="..\Previsul.Components.LoggingRepository\Previsul.Components.LoggingRepository.csproj" />
+  </ItemGroup>
+
+</Project>
