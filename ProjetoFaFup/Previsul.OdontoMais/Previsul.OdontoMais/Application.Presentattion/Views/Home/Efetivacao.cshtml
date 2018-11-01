@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Efetivacao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container box-content">
+
+    <div class="row">
+        <div class="col-sm-12" id="appTimeLine">
+            <ul class="steps-icon">
+                <li class="active">
+                    <a v-bind:href="'/Home' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Cotação</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a v-bind:href="'/Home/DadosEmpresa' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Dados da Empresa</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a v-bind:href="'/Home/Efetivacao' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Efetivação</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="jumbotron box-white termo">
+                <h2>DOCUMENTAÇÃO A SER DIGITALIZADA E ENVIADA PARA OPERADORA</h2>
+                <p>
+                    Em caso de necessidade a Operadora poderá solicitar a qualquer tempo a relação de documentos como FGTS, Contrato Social e Copia do RG e CPF do sócio ou responsável legal a contratante, e esse deverá ser enviado em até 24 horas.
+                </p>
+
+                <h2>DECLARAÇÃO E TERMO DE RESPONSABILIDADE</h2>
+                <p>
+                    1)	Que tenho ciência que a Operadora enviará por e-mail as Condições Gerais e Especiais (Anexo I) do contrato<br />
+                    2)	Que tenho ciência de que a redução ou isenção dos prazos de carência não alteram as coberturas do contrato, permanecendo inalteradas as exclusões e limitações de cobertura expressas no contrato.<br />
+                    3)	Que tenho ciência e observo todos os procedimentos Odontológicos cobertos e não cobertos pelos PLANOS efetivamente contratados através deste Contrato <br />
+                    4)	Que tenho ciência de que esta Proposta de Plano Odontológico somente terá validade a partir do envio de toda documentação necessária e exigida pela ODONTO EMPRESAS, levando-se em consideração o prazo de implantação<br />
+                    5)	Assumo a responsabilidade das declarações feitas por mim, livre e espontaneamente e, na qualidade de responsável pelos beneficiários incluídos nesta Proposta de Plano Odontológico, assumo como devedor e principal pagador a obrigação pelo pagamento das mensalidades e o cumprimento das demais obrigações integrantes do plano que agora subscrevo.<br />
+                    6)	Tenho conhecimento que, para efetivação da Contratação do Plano Odontológico, esta proposta deverá ser assinada digitalmente e a Ficha de adesão ou planilha com dados dos funcionários enviada para a Operadora.<br />
+                    7)	Que tenho a ciência de que este documento e as suas cópias não poderão ter rasuras, motivo pelo qual sei que a ODONTO EMPRESAS poderá não aceitar este documento, sendo motivo para preenchimento de nova Proposta de Plano Odontológico.<br />
+                    8)	Que tenho ciência de que a ODONTO EMPRESAS não se responsabiliza por qualquer informação ou promessa que não esteja assinada por pessoa autorizada, nem mesmo por informações, promessas, promoções ou outros compromissos que não sejam aqueles previstos no presente contrato, exceto se previamente aprovados pela ODONTO EMPRESAS por escrito. <br />
+                    9)	Tenho conhecimento que, os planos não possuem carências para todos os procedimentos, exceto contratos com até 29 vidas que terão carência de 180 dias para procedimentos da especialidade de Prótese do Rol ANS.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-3" style="text-align: right;">
+            <label class="" for="termo_concordo" style="padding: 15px;">Li e concordo com os termos</label>
+            <div class="custom-control custom-checkbox" style="display: inline-block; float: right">
+                <input type="checkbox" name="termo_concordo" class="custom-control-input" id="termo_concordo" required="" />
+                <label class="custom-control-label" for="termo_concordo"></label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <a href="efetivacao.html" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modalAceite">AVANÇAR</a>
+            <br />
+        </div>
+    </div>
+
+
+
+    <!-- Modal Aceite -->
+    <div class="modal fade" id="modalAceite" tabindex="-1" role="dialog" aria-labelledby="modalAceiteLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <strong class="modal-title" id="modalAceiteLabel">SUA PROPOSTA FOI <br />ENVIADA COM SUCESSO!</strong>
+                </div>
+                <div class="modal-body text-center">
+                    <p>
+                        <strong>PARABÉNS!</strong><br />
+                        Agora falta pouco para a finalização da sua contratação. Em breve você receberá um e-mail com todas as informações necessárias.
+                    </p>
+                    <p>
+                        <strong>IMPORTANTE:</strong><br />
+                        O inícnio do atendimento se dará após o envio de toda a  documentação necessária e exigida pelo Operador.
+                    </p>
+
+
+                    <p>
+                        <br /><button type="button" class="btn btn-secondary btn-lg protocolo px-250">Proposta nº 2139097524</button>
+                    </p>
+
+                    <p>
+                        <br /><button type="button" class="btn btn-info btn-lg px-250" data-dismiss="modal">OK</button>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <br />
+        <p>&copy; @DateTime.Today.Year - Previsul Odonto PME</p>
+    </footer>
+
+</div>
+
+
+<script type="text/javascript" src="~/Assets/js/Main.vue.js"></script>

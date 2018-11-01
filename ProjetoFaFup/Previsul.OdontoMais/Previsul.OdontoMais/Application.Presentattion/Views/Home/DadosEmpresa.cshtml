@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewData["Title"] = "Dados da Empresa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container box-content">
+
+    <div class="row">
+        <div class="col-sm-12" id="appTimeLine">
+            <ul class="steps-icon">
+                <li class="active">
+                    <a v-bind:href="'/Home' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Cotação</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a v-bind:href="'/Home/DadosEmpresa' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Dados da Empresa</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a v-bind:href="'/Home/Efetivacao' + queryString">
+                        <span class="lock"><i class="fas fa-lock"></i></span>
+                        <span class="description">Efetivação</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="appDadosEmpresa">
+        <div class="row" style="margin-bottom: 13px;">
+
+            <div class="col-sm-6">
+                <fieldset class="fieldset-form">
+                    <legend>Registro da Empresa</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="razaoSocial">Razão Social:*</label>
+                            <input type="text" name="razaoSocial" class="form-control" v-model="dadosEmpresa.razaoSocial" v-validate="'required'">
+                            <span v-show="errors.has('razaoSocial')" class="alert-form">{{ errors.first('razaoSocial') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="nomeFantasia">Nome Fantasia:*</label>
+                            <input type="text" name="nomeFantasia" class="form-control" v-model="dadosEmpresa.nomeFantasia" v-validate="'required'">
+                            <span v-show="errors.has('nomeFantasia')" class="alert-form">{{ errors.first('nomeFantasia') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cnpj">CNPJ:*</label>
+                            <input type="text" name="cnpj" class="form-control" v-model="dadosEmpresa.cnpj" v-validate="'required'" v-mask="'##.###.###/####-##'">
+                            <span v-show="errors.has('cnpj')" class="alert-form">{{ errors.first('cnpj') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="nomeContato">Nome do Contato:*</label>
+                            <input type="text" name="nomeContato" class="form-control" v-model="dadosEmpresa.nomeContato" v-validate="'required'">
+                            <span v-show="errors.has('nomeContato')" class="alert-form">{{ errors.first('nomeContato') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="email">E-mail do Contato:*</label>
+                            <input type="text" name="email" class="form-control" v-model="dadosEmpresa.email" v-validate="'required|email'">
+                            <span v-show="errors.has('email')" class="alert-form">{{ errors.first('email') }}</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6">
+                <fieldset class="fieldset-form">
+                    <legend>Endereço da Empresa</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="logradouro">Logradouro:*</label>
+                            <input type="text" name="logradouro" v-model="dadosEmpresa.logradouro" class="form-control" v-validate="'required'">
+                            <span v-show="errors.has('logradouro')" class="alert-form">{{ errors.first('logradouro') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="bairro">Bairro:*</label>
+                            <input type="text" name="bairro" class="form-control" v-model="dadosEmpresa.bairro" class="form-control" v-validate="'required'">
+                            <span v-show="errors.has('bairro')" class="alert-form">{{ errors.first('bairro') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="numero">Numero:*</label>
+                            <input type="text" name="numero" class="form-control" v-model="dadosEmpresa.numero" class="form-control" v-validate="'required'" v-mask="'#####'">
+                            <span v-show="errors.has('numero')" class="alert-form">{{ errors.first('numero') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="cep">CEP:*</label>
+                            <input type="text" name="cep" class="form-control" v-model="dadosEmpresa.cep" class="form-control" v-validate="'required'" v-mask="'#####-###'">
+                            <span v-show="errors.has('cep')" class="alert-form">{{ errors.first('cep') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="complemento">Complemento:</label>
+                            <input type="text" name="complemento" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cidade">Cidade:*</label>
+                            <input type="text" name="cidade" class="form-control" v-model="dadosEmpresa.cidade" class="form-control" v-validate="'required'">
+                            <span v-show="errors.has('cidade')" class="alert-form">{{ errors.first('logradouro') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="estado">Estado:*</label>
+                            <select name="estado" class="form-control" v-model="dadosEmpresa.estado" class="form-control" v-validate="'required'">
+                                <option value=""></option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                            <span v-show="errors.has('estado')" class="alert-form">{{ errors.first('estado') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="telefone">Telefone:*</label>
+                            <input type="text" name="telefone" class="form-control" v-model="dadosEmpresa.telefone" v-validate="'required'" v-mask="'(##)#########'">
+                            <span v-show="errors.has('telefone')" class="alert-form">{{ errors.first('telefone') }}</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <fieldset class="fieldset-form">
+                    <legend>Vigência</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="inicioVigencia">Inicio de Vigência:*</label>
+                            <input type="text" name="inicioVigencia" class="form-control" v-model="dadosEmpresa.inicioVigencia" v-validate="'required'" v-mask="'##/##/####'" placeholder="00/MM/AAAA">
+                            <span v-show="errors.has('inicioVigencia')" class="alert-form">{{ errors.first('inicioVigencia') }}</span>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="diaVencimento">Dia do Vencimento:*</label>
+                            <select name="diaVencimento" class="form-control" v-model="dadosEmpresa.diaVencimento" class="form-control" v-validate="'required'">
+                                <option value=""></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                            <span v-show="errors.has('diaVencimento')" class="alert-form">{{ errors.first('diaVencimento') }}</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <fieldset class="fieldset-form">
+                            <legend>Volume</legend>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="quantidadeVidas">Quantidade de Vidas:*</label>
+                                    <input type="text" name="quantidadeVidas" class="form-control text-center" v-model="dadosEmpresa.quantidadeVidas" readonly="">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                        <br />
+                        <br />
+                        <button class="btn btn-success btn-lg btn-block" v-on:click="cadastrarEmpresa">AVANÇAR</button>
+                        <br />
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <br/>
+        <p>&copy; @DateTime.Today.Year - Previsul Odonto PME</p>
+    </footer>
+
+</div>
+
+<script type="text/javascript" src="~/Assets/js/libs/vee-validate.js"></script>
+<script type="text/javascript" src="~/Assets/js/libs/v-mask.min.js"></script>
+<script type="text/javascript" src="~/Assets/js/libs/axios.min.js"></script>
+
+<script type="text/javascript" src="~/Assets/js/Main.vue.js"></script>
+<script type="text/javascript" src="~/Assets/js/DadosEmpresa.vue.js"></script>
+

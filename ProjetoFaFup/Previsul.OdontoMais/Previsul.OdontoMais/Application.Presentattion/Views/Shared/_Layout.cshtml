@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+
+        <!--Configurações mobile (zoom e cor tema do navegador)-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#00ace6">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#00ace6">
+
+        <link rel="stylesheet" type="text/css" href="~/Assets/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="~/Assets/css/style.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/regular.css" integrity="sha384-zkhEzh7td0PG30vxQk1D9liRKeizzot4eqkJ8gB3/I+mZ1rjgQk+BSt2F6rT2c+I" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <script type="text/javascript" src="~/Assets/bootstrap/dist/js/jquery-3.3.1.slim.min.js"></script>
+        <script type="text/javascript" src="~/Assets/bootstrap/dist/js/popper.min.js"></script>
+        <script type="text/javascript" src="~/Assets/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Assets/js/libs/vue.min.js"></script>
+
+
+        <title>@ViewData["Title"] - Previsul Odonto PME</title>
+    </head>
+
+    <body>
+
+        <div class="container-fluid fixed-top header" id="appHeader">
+            <div class="row">
+                <div class="col-9 icons">
+                    <a href="#"><img src="~/Assets/img/base/icon_Voltar.png" class="voltar" /></a>
+                    <a v-bind:href="'/Home' + queryString"><img src="~/Assets/img/base/logo.png" class="logo" /></a>
+                </div>
+                <div class="col-3">
+                    <nav class="nav navbar">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li>
+                                <a class="" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" v-bind:href="'/MinhasPropostas' + queryString">Minhas Propostas</a>
+                                    <a class="dropdown-item" href="#">Ir para o <strong>Cota+</strong></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Desconectar</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="appMain">
+            <div class="loading" v-if="loadingVisible" v-cloak>
+                <img src="~/Assets/img/base/loading4.gif">
+            </div>
+        </div>
+
+        @RenderBody()
+
+
+    </body>
+
+</html>

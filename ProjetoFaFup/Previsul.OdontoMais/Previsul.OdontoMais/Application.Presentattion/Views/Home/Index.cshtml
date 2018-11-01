@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container box-content">
+
+    <div class="row">
+        <div class="col-sm-12" id="appTimeLine">
+            <ul class="steps-icon">
+                <li class="active">
+                    <a v-bind:href="'/Home' + queryString">
+                        <span class="lock"><i class="fas fa-unlock"></i></span>
+                        <span class="description">Cotação</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a v-bind:href="'/Home/DadosEmpresa' + queryString">
+                        <span class="lock"><i class="fas fa-lock"></i></span>
+                        <span class="description">Dados da Empresa</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a v-bind:href="'/Home/Efetivacao' + queryString">
+                        <span class="lock"><i class="fas fa-lock"></i></span>
+                        <span class="description">Efetivação</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-6" id="appPlanos">
+
+            <div class="row" v-if="coberturaVisible" v-cloak>
+                <div class="col-sm-12">
+                    <div class="jumbotron cobertura-titulo">
+                        <a href="#" v-on:click="closeCobertura"><img src="assets/img/base/icon_close.png" class="close-icon" /></a>
+                        <h3>{{coberturaTitulo}}</h3>
+                        {{coberturaDescricao}}
+                    </div>
+                    <div class="jumbotron cobertura-detalhes">
+                        <ul>
+                            <li v-for="especialidade in coberturaEspecialidades">{{especialidade.nome}} ({{especialidade.descricao}})</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" v-if="planosVisible">
+
+                <div class="col-sm-6" v-for="(plano, index) in planos">
+                    <div class="jumbotron planos">
+                        <h2>{{plano.nome}}</h2>
+                        <p class="info">{{plano.descricao}}</p>
+                        <div class="row box-opcoes">
+                            <div class="col-5 pr-0 label">
+                                <strong>Qntd. de Vidas</strong>
+                            </div>
+                            <div class="col-5 m-0 pr-0">
+                                <input type="text" name="beneficiados" v-model="qtdVidas[index].qtd" class="form-control" v-mask="'###'">
+                            </div>
+                            <div class="col-2 pl-0">
+                                <img src="assets/img/base/icon_arrow_top.png" class="arrow-top" v-on:click="maisVida(index)" />
+                                <img src="assets/img/base/icon_arrow_bottom.png" class="arrow-bottom" v-on:click="menosVida(index)" />
+                            </div>
+                        </div>
+                        <p class="box-btn">
+                            <button class="btn btn-secondary" v-on:click="openCobertura(index)">Coberturas</button>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6 box-calculo">
+            <div class="row" id="appCalculo">
+                <div class="col-sm-12 box-fieldset">
+                    <fieldset class="resultado">
+                        <legend>Resultado do Cálculo</legend>
+                        <h1 v-cloak>R$ {{resultado}}</h1>
+                    </fieldset>
+                </div>
+                <div class="col-sm-12 box-fieldset">
+                    <fieldset class="resultado">
+                        <legend>Agenciamento e Comissão (Em percentual)</legend>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="comissao_100" name="comissao" required>
+                            <label class="custom-control-label" for="comissao_100">100/10</label>
+                        </div>
+                        <div class="custom-control custom-radio" style="width: 30%">
+                            <input type="radio" class="custom-control-input" id="comissao_200" name="comissao" required>
+                            <label class="custom-control-label" for="comissao_200">200/05</label>
+                        </div>
+                        <div class="custom-control custom-radio" style="width: 30%">
+                            <input type="radio" class="custom-control-input" id="comissao_300" name="comissao" required>
+                            <label class="custom-control-label" for="comissao_300">300/3</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-12 box-fieldset">
+                    <fieldset class="resultado">
+                        <legend>Forma(s) de Pagamento - Para o Contratante</legend>
+                        <div class="custom-control custom-radio" style="width: auto;">
+                            <input type="radio" class="custom-control-input" id="forma_pagamento" name="forma_pagamento" required checked="">
+                            <label class="custom-control-label" for="forma_pagamento">Pagamento via Boleto</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-12 box-fieldset">
+                    <button class="btn btn-info btn-lg btn-block" v-on:click="calcular"><span v-cloak>{{label.btnCalcular}}</span></button>
+                </div>
+                <div class="col-sm-12 box-fieldset box-acoes">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#modalNaoAprovado">NÃO APROVADO</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-success btn-lg btn-block" v-on:click="cadastrarCotacao">CONTRATAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Aceite -->
+    <div class="modal fade" id="modalNaoAprovado" tabindex="-1" role="dialog" aria-labelledby="modalNaoAprovadoLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <strong class="modal-title" id="modalNaoAprovadoLabel">AJUDE-NOS A ENTENDER PORQUE A COTAÇÃO NÃO FOI APROVADO:</strong>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-control custom-checkbox nao-aprovado-options">
+                        <input type="checkbox" name="valor_alto" class="custom-control-input" id="valor_alto" required="" />
+                        <label class="custom-control-label" for="valor_alto">Achei o valor muito alto!</label>
+                    </div>
+                    <div class="custom-control custom-checkbox nao-aprovado-options">
+                        <input type="checkbox" name="nao_atende" class="custom-control-input" id="nao_atende" required="" />
+                        <label class="custom-control-label" for="nao_atende">O produto não me atende!</label>
+                    </div>
+                    <div class="custom-control custom-checkbox nao-aprovado-options">
+                        <input type="checkbox" name="outros" class="custom-control-input" id="outros" required="" />
+                        <label class="custom-control-label" for="outros">Outros:</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" placeholder="Descreva aqui..."></textarea>
+                    </div>
+
+                    <p>
+                        <br /><button type="button" class="btn btn-info btn-lg btn-block" data-dismiss="modal">ENVIAR</button>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Limite Vidas -->
+    <div class="modal fade show" id="modalLimiteVidas" tabindex="-1" role="dialog" aria-labelledby="modalNaoAprovadoLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <strong class="modal-title" id="modalLimiteVidas">ATENÇÃO PREZADO PARCEIRO!</strong>
+                </div>
+                <div class="modal-body text-center">
+                    <p>
+                        Essa cotação é especial! Para essa quantidade de vidas, entre em contato com a nossa área de subscrição pelo e-mail abaixo:.<br /><br />
+                        <strong>cotacao@odontoempresas.com.br</strong>
+                    </p>
+
+                    <p>
+                        <br /><button type="button" class="btn btn-info btn-lg btn-block" data-dismiss="modal">ENTENDI</button>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; @DateTime.Today.Year - Previsul Odonto PME</p>
+    </footer>
+
+</div>
+
+<script type="text/javascript" src="~/Assets/js/libs/v-mask.min.js"></script>
+<script type="text/javascript" src="~/Assets/js/libs/axios.min.js"></script>
+
+<script type="text/javascript" src="Assets/js/Main.vue.js"></script>
+<script type="text/javascript" src="~/Assets/js/Index.vue.js"></script>
